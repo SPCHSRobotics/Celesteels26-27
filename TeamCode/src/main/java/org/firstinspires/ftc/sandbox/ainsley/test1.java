@@ -13,7 +13,7 @@ public class test1 extends OpMode {
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
 
-    DcMotor rbMotor;
+    @Override
     public void init() {
         frontLeftDrive = hardwareMap.get(DcMotor.class, "front_left_drive");
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
@@ -26,13 +26,19 @@ public class test1 extends OpMode {
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
     }
 
+    @Override
+    public void start() {
+        runtime.reset();
+    }
+
+    @Override
     public void loop() {
         double max;
 
         // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-        double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-        double lateral =  gamepad1.left_stick_x;
-        double yaw     =  gamepad1.right_stick_x;
+        double axial   = -gamepad1.left_stick_y;
+        double lateral = gamepad1.left_stick_x;
+        double yaw     = gamepad1.right_stick_x;
 
         // Combine the joystick requests for each axis-motion to determine each wheel's power.
         // Set up a variable for each drive wheel to save the power level for telemetry.
@@ -54,23 +60,6 @@ public class test1 extends OpMode {
             backRightPower  /= max;
         }
 
-        // This is test code:
-        //
-        // Uncomment the following code to test your motor directions.
-        // Each button should make the corresponding motor run FORWARD.
-        //   1) First get all the motors to take to correct positions on the robot
-        //      by adjusting your Robot Configuration if necessary.
-        //   2) Then make sure they run in the correct direction by modifying the
-        //      the setDirection() calls above.
-        // Once the correct motors move in the correct direction re-comment this code.
-
-            /*
-            frontLeftPower  = gamepad1.x ? 1.0 : 0.0;  // X gamepad
-            backLeftPower   = gamepad1.a ? 1.0 : 0.0;  // A gamepad
-            frontRightPower = gamepad1.y ? 1.0 : 0.0;  // Y gamepad
-            backRightPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
-            */
-
         // Send calculated power to wheels
         frontLeftDrive.setPower(frontLeftPower);
         frontRightDrive.setPower(frontRightPower);
@@ -82,6 +71,14 @@ public class test1 extends OpMode {
         telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
         telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
         telemetry.update();
+    }
+
+    @Override
+    public void stop() {
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
     }
 
 }
