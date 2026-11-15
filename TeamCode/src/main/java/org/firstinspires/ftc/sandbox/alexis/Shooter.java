@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.sandbox.alexis;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,6 +13,8 @@ public class Shooter {
     public Shooter(HardwareMap hardwareMap) {
         leftShooter = hardwareMap.get(DcMotor.class, "leftShooter");
         rightShooter = hardwareMap.get(DcMotor.class, "rightShooter");
+
+        rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void shooterTTfx(Gamepad gamepad, Telemetry telemetry) {

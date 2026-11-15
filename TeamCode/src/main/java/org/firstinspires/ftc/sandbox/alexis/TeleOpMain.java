@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /* i bought a usb-a to usb-c adapter
 --to put on the orange dongle-- inside of the white big toolbox (big bottom right drawer, please return it to original home after use*/
 
-@Disabled
 @TeleOp (name="Celesteels Op Mode, im ngl this is copied straight from our old TT code", group="Linear OpMode")
 public class TeleOpMain extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();

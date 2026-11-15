@@ -20,8 +20,8 @@ public class Drive {
         backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
 
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
     }
 
@@ -30,7 +30,7 @@ public class Drive {
         double max;
 
         double axial   = -gamepad.left_stick_y;
-        double lateral =  gamepad.left_stick_x * 1.1;
+        double lateral =  -gamepad.left_stick_x * 1.1;
         double yaw     =  gamepad.right_stick_x;
 
         double frontLeftPower  = axial + lateral + yaw;
